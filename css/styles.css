@@ -1,0 +1,588 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    scroll-snap-type: y mandatory;
+    overflow-x: hidden;
+}
+
+/* Navigation Bar */
+.navbar {
+    width: 100%;
+    background-color: #5c0b0b;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    padding: 5px 0;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+
+/* Title Bar */
+.title-bar {
+    width: 100%;
+    padding: 4dvh 0;
+    background-color: #945a5a;
+    text-align: center;
+    position: fixed;
+    top: 25px;
+    bottom: 87%;
+    z-index: 999;
+}
+
+.title-bar h1 {
+    margin: 0;
+    font-size: 40px;
+    display: inline-flex;
+}
+
+.char {
+    transition: color 0.3s ease, color 1s ease-out 0.5s;
+    /* Smooth transition for color change and delayed transition for reverting to white */
+}
+
+.char:hover {
+    color: #FF6347;
+    /* Example hover color, you can choose any color */
+}
+
+.char:hover~.char {
+    transition-delay: 0s;
+    /* No delay for other characters to turn white */
+}
+
+.char {
+    cursor: pointer;
+}
+
+
+
+/* Page Section */
+.section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    scroll-snap-align: start;
+    padding-top: 120px;
+    /* Adjust to accommodate both navbar and title bar heights */
+    box-sizing: border-box;
+}
+
+/* Section 1: Carousel */
+.carousel {
+    width: 74%;
+    max-width: 1200px;
+    height: 75vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Section 2: Interactive Map */
+.section2 {
+    display: flex;
+    background-color: #f4f4f4;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+.container {
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    height: 600px;
+}
+
+.image-container {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+}
+
+.main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease-in-out;
+}
+
+.hotspot-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hotspot {
+    position: absolute;
+    cursor: pointer;
+}
+
+.hotspot-marker {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: transform 0.3s ease-in-out;
+}
+
+.description-container {
+    position: relative;
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.zoomed-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+.description-text {
+    font-size: 1.2rem;
+    text-align: center;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.sub-hotspot-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+.sub-hotspot {
+    position: absolute;
+    cursor: pointer;
+}
+
+.sub-hotspot-marker {
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: transform 0.3s ease-in-out;
+}
+
+.hotspot.active .hotspot-marker {
+    transform: scale(1.5);
+}
+
+.sub-hotspot.active .sub-hotspot-marker {
+    transform: scale(1.5);
+}
+
+.image-container.zoomed .main-image {
+    transform: scale(1.2);
+}
+
+/* Tooltip image for hotspot */
+.sub-hotspot::after {
+    content: '';
+    display: none;
+    position: absolute;
+    top: -150px;
+    left: 30px;
+    width: 300px;
+    height: 300px;
+    background-size: cover;
+    border: 2px solid #000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 10;
+}
+
+.sub-hotspot1::after {
+    background-image: url('../img/2/龙江书院.jpg');
+}
+
+.sub-hotspot2::after {
+    background-image: url('../img/2/八角楼.jpg');
+    width: 300px;
+    height: 200px;
+}
+
+.sub-hotspot3::after {
+    background-image: url('../img/2/红军医院.jpg');
+    width: 300px;
+    height: 200px;
+}
+
+.sub-hotspot4::after {
+    background-image: url('../img/2/挑梁小道.jpg');
+    width: 300px;
+    height: 300px;
+}
+
+.sub-hotspot5::after {
+    background-image: url('../img/2/红军烈士墓.jpg');
+}
+
+.sub-hotspot6::after {
+    background-image: url('../img/2/井冈山革命烈士陵园.jpg');
+}
+
+.sub-hotspot7::after {
+    background-image: url('../img/2/井冈山革命博物馆.jpg');
+    width: 300px;
+    height: 200px;
+}
+
+.sub-hotspot:hover::after {
+    display: block;
+}
+
+/* Section 3: Additional Content */
+.section3 {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 50px;
+}
+
+
+/* Section 4 media report */
+.section4 {
+    padding: 40px 20px;
+    background-color: #f8f8f8;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    /* 将子元素排列为列 */
+}
+
+.top-section {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 100PX;
+    margin-top: 80%;
+    width: 10%;
+
+}
+/*当在移动设备(屏幕宽度小于或等于 768 像素)上浏览时,
+.top-section 元素会距离页面顶部 30% 的距离;
+而在桌面设备(屏幕宽度大于或等于 769 像素)上,它会距离页面顶部 20% 的距离。*/
+@media (max-width: 768px) {
+    .top-section {
+        margin-top: 30%;
+    }
+}
+
+@media (min-width: 769px) {
+    .top-section {
+        margin-top: 20%;
+    }
+}
+.top-article {
+
+    background-color: white;
+    padding: 1px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    margin-right: 100px;
+
+}
+
+.top-article img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.top-article:hover {
+    transform: scale(1.05);
+}
+
+.bottom-section {
+    display: flex;
+    justify-content: space-around;
+}
+
+.carousel-container {
+    width: 80%;
+    height: auto;
+    flex-grow: 0.1;
+    /* 调整图片占用的空间比例 */
+}
+
+.carousel {
+    overflow: hidden;
+    position: relative;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+
+}
+
+.carousel:hover {
+    transform: scale(1.05);
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    background-color: white;
+}
+
+.text-box {
+    padding: 10px;
+    text-align: left;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    background-color: rgba(0, 0, 0, 0.5);
+    user-select: none;
+}
+
+.next {
+    right: 0;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* 针对左右轮播图的箭头调整 */
+.carousel-container .carousel .prev,
+.carousel-container .carousel .next {
+    /* 将箭头定位到轮播图容器中 */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.carousel-container .carousel .prev {
+    left: 10px;
+    /* 调整左箭头位置 */
+}
+
+.carousel-container .carousel .next {
+    right: 10px;
+    /* 调整右箭头位置 */
+}
+
+.top-article h3,
+.text-box h3 {
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.top-article p,
+.text-box p {
+    font-size: 14px;
+    color: #555;
+}
+
+/*section5*/
+.section5 {
+    background: linear-gradient(#ff7f7f, #ff4c4c, #ff0000);
+    position: relative;
+}
+
+.interview {
+    padding-bottom: 60px;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.interview1 {
+    width: 48%;
+    display: inline-flex;
+    transition: all 0.35s ease-in-out;
+    float: left;
+    position: relative;
+    padding: 0px 25px;
+
+}
+
+.interview2 {
+    width: 48%;
+    display: inline-flex;
+    transition: all 0.35s ease-in-out;
+    float: right;
+    position: relative;
+    padding: 0px 25px;
+}
+
+.interview-container {
+    position: relative;
+    width: 100%;
+
+}
+
+.InterviewImgResponsive {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    display: block;
+    background-color: #FF6347;
+}
+
+.InterviewImgResponsive img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
+
+.InterviewImgResponsive:hover img {
+    transform: scale(1.1);
+    /* 鼠标悬停时放大 */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    /* 添加阴影效果 */
+}
+
+.interview-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.9);
+    /* 白色背景，透明度调整 */
+    padding: 10px;
+    text-align: center;
+}
+
+.interview-text h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #000;
+}
+
+/*section 6 实践感想*/
+.section6 {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7e5e5;
+}
+
+/*section 7 video*/
+.section7 {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7e5e5;
+}
+
+.video-container {
+    max-width: 800px;
+    width: 100%;
+    height: 450px;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

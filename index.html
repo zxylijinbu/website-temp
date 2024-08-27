@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Website with Carousel and Interactive Map</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="#section1">首页</a>
+        <a href="#section2">地图</a>
+        <a href="#section3">社会实践人员简介</a>
+        <a href="#section4">媒体报道</a>
+        <a href="#section5">人物采访</a>
+        <a href="#section6">实践感想</a>
+        <a href="#section7">微党课</a>
+    </div>
+
+    <!-- Title Bar under Navigation Bar -->
+    <div class="title-bar">
+        <h1>
+            <span class="char" style="color: #fafaf4;">而</span>
+            <span class="char" style="color: #fafaf4;">今</span>
+            <span class="char" style="color: #fafaf4;">迈</span>
+            <span class="char" style="color: #fafaf4;">步</span>
+            <span class="char" style="color: #fafaf4;">从</span>
+            <span class="char" style="color: #fafaf4;">头</span>
+            <span class="char" style="color: #fafaf4;">越</span>
+            <span class="char" style="color: #fafaf4;">—</span>
+            <span class="char" style="color: #fafaf4;">纪</span>
+            <span class="char" style="color: #fafaf4;">念</span>
+            <span class="char" style="color: #fafaf4;">长</span>
+            <span class="char" style="color: #fafaf4;">征</span>
+            <span class="char" style="color: #fafaf4;">出</span>
+            <span class="char" style="color: #fafaf4;">发</span>
+            <span class="char" style="color: #fafaf4;">90</span>
+            <span class="char" style="color: #fafaf4;">周</span>
+            <span class="char" style="color: #fafaf4;">年</span>
+            <span class="char" style="color: #fafaf4;">实</span>
+            <span class="char" style="color: #fafaf4;">践</span>
+            <span class="char" style="color: #fafaf4;">团</span>
+        </h1>
+    </div>
+    
+    
+
+    <!-- Section 1: Carousel -->
+    <div class="section" id="section1">
+        <div class="carousel">
+            <div class="slides" id="slide_sec1">
+                <div class="slide"><img src="./img/1/1.jpg" alt="Slide 1"></div>
+                <div class="slide"><img src="./img/1/2.JPG" alt="Slide 2"></div>
+                <div class="slide"><img src="./img/1/3.JPG" alt="Slide 3"></div>
+                <div class="slide"><img src="./img/1/4.jpg" alt="Slide 3"></div>
+            </div>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+    </div>
+
+    <!-- Section 2: Interactive Map -->
+    <div class="section section2" id="section2">
+        <div class="container">
+            <div class="image-container">
+                <img src="./img/2/江西.jpg" alt="Main Image" class="main-image">
+                <div class="hotspot-container">
+                    <div class="hotspot" data-image="./img/2/景德镇.jpg" data-description="景德镇市，位于江西省东北部,是国家历史文化名城，景德镇陶瓷为闻名中外的当地名产，素有“瓷都”之称，为明清时期四大名镇之一。" style="top: 18%; left: 65%;">
+                        <div class="hotspot-marker"></div>
+                    </div>
+                    <div class="hotspot" data-image="./img/2/南昌.jpg" data-description="南昌位于江西省北部，有“粤户闽庭，吴头楚尾”、“襟三江而带五湖”之称，南昌建城史逾二千二百年，有海昏侯墓、滕王阁、绳金塔、八大山人纪念馆等名胜古迹，全国性综合交通枢纽、航空工业基地和光电产业基地，是中国唯一一个毗邻长江三角洲、珠江三角洲和海峡西岸经济区的省会城市，也是华东地区重要的中心城市之一。" style="top: 30%; left: 48%;">
+                        <div class="hotspot-marker"></div>
+                    </div>
+                    <div class="hotspot" data-image="./img/2/瑞金.jpg" data-description="瑞金市，位于江西省南部，是客家人的主要聚居地和客家文化的重要发祥地之一。同时又是红色故都，当年中央苏区文化的中心。瑞金是共和国摇篮、中央苏区时期党中央驻地、中华苏维埃共和国临时中央政府诞生地、中央红军二万五千里长征出发地、是全国爱国主义和革命传统教育基地." style="top: 64%; left: 62%;">
+                        <div class="hotspot-marker"></div>
+                    </div>
+                    <div class="hotspot" data-image="./img/2/井冈山.jpg" data-description="井冈山市，位于江西省西南部， 以中国共产党在1927年创立的井冈山革命根据地而闻名。" style="top: 61%; left: 34%;">
+                        <div class="hotspot-marker"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="description-container">
+                <img src="" alt="" class="zoomed-image">
+                <div class="description-text" id="descriptionText"></div>
+                <div class="sub-hotspot-container" id="subHotspotContainer">
+                    <div class="sub-hotspot sub-hotspot1" data-image="./img/2/龙江书院.jpg" data-description="Sub Hotspot 1 Description" style="top: 18%; left: 20%;">
+                        <div class="sub-hotspot-marker"></div>
+                    </div>
+                    <div class="sub-hotspot sub-hotspot2" data-image="./img/2/八角楼.jpg" data-description="Sub Hotspot 2 Description" style="top: 30%; left: 23%;">
+                        <div class="sub-hotspot-marker"></div>
+                    </div>
+                    <div class="sub-hotspot sub-hotspot3" data-image="./img/2/红军医院.jpg" data-description="红军医院" style="top: 30%; left: 70%;">
+                        <div class="sub-hotspot-marker"></div>
+                    </div>
+                    <div class="sub-hotspot sub-hotspot4" data-image="./img/2/挑梁小道.jpg" data-description="挑梁小道" style="top: 35%; left: 37%;">
+                        <div class="sub-hotspot-marker"></div>
+                    </div>
+                    <div class="sub-hotspot sub-hotspot5" data-image="sub-image5.jpg" data-description="红军烈士墓" style="top: 40%; left: 50%;">
+                        <div class="sub-hotspot-marker"></div>
+                    </div>
+                    <div class="sub-hotspot sub-hotspot6" data-image="sub-image6.jpg" data-description="井冈山革命烈士陵园" style="top: 55%; left: 67%;">
+                        <div class="sub-hotspot-marker"></div>
+                    </div>
+                    <div class="sub-hotspot sub-hotspot7" data-image="sub-image7.jpg" data-description="井冈山革命博物馆" style="top: 67%; left: 68%;">
+                        <div class="sub-hotspot-marker"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Section 3: Additional Content -->
+    <div class="section section3" id="section3">
+        <h1>待添加人物介绍</h1>
+        <p>This is the third section of the page.</p>
+        <p>You can add more content here.</p>
+    </div>
+
+    
+    <!-- Section 4: Articles and Carousels -->
+    <div class="section section4" id="section4">    
+        <div class="bottom-section">
+            <!-- Left Carousel -->
+            <div class="carousel-container" >
+                <div class="carousel">
+                    <div class="slides" >
+                        <div class="slide">
+                            <a href="https://h.xinhuaxmt.com/vh512/share/12104107?d=134d94d&channel=weixin">
+                                <img src="./img/4/1.png" alt="Top Article 1">
+                                <div class="text-box">
+                                    <h3>北京理工大学开展“纪念红军长征出发90周年”实践活动</h3>
+                                    <p>新华社 报道</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="http://5g.jgsdaily.com/content_html/html/668/p/wap/2024/07/132047478.html">
+                                <img src="./img/4/3.jpg" alt="Left Slide 1">
+                                <div class="text-box">
+                                    <h3>沿着长征路学党史 感受中国革命不朽精神</h3>
+                                    <p>吉安号 报道</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://mbd.baidu.com/newspage/data/landingsuper?id=1804843481831009194&baijiahao_id=1804843481831009194&wfr=&third=baijiahao&c_source=kunlun&c_score=0.999000&p_tk=6195KD77l%2FhReucZyZeUuNaVRexjDqN6H1Fgw%2FxaxEM%2BYBvbYPOkS9YI1x22iCDIsNbURYxK0hjGlAy2F%2B%2BkNdP8KUL82c4%2FgEyDhza26kBN81CfTqaPCUFAAiMPaMStbaAP1WWUX%2FkvIuyDRVpdVhRj8ipnMBN3bwW13CZecRBrq%2Fk%3D&p_timestamp=1723872103&p_sign=05755c1ee3daa202efcfb3f922ba2d2a&p_signature=654d9aeafe61f9c7fa9ccccd9e45c469&__pc2ps_ab=6195KD77l%2FhReucZyZeUuNaVRexjDqN6H1Fgw%2FxaxEM%2BYBvbYPOkS9YI1x22iCDIsNbURYxK0hjGlAy2F%2B%2BkNdP8KUL82c4%2FgEyDhza26kBN81CfTqaPCUFAAiMPaMStbaAP1WWUX%2FkvIuyDRVpdVhRj8ipnMBN3bwW13CZecRBrq%2Fk%3D|1723872103|654d9aeafe61f9c7fa9ccccd9e45c469|05755c1ee3daa202efcfb3f922ba2d2a">
+                                <img src="./img/4/4.png" alt="Left Slide 2">
+                                <div class="text-box">
+                                    <h3>北理工开展“纪念红军长征出发90周年”实践活动</h3>
+                                    <p>新华全时空 报道</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://s.cyol.com/articles/2024-08/07/content_jpKW6QS2.html?gid=PDEAGwD9">
+                                <img src="./img/4/5.jpg" alt="Left Slide 3">
+                                <div class="text-box">
+                                    <h3>长征起点！这群大学生有了不同的理解</h3>
+                                    <p>中国青年报 报道</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <a class="prev" onclick="plusLeftSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusLeftSlides(1)">&#10095;</a>
+                </div>
+            </div>
+    
+            <!-- Right Carousel -->
+            <div class="carousel-container">
+                <div class="carousel">
+                    <div class="slides">
+                        <div class="slide">
+                            <a href="https://share.app3.jyb.cn/news_d/97fa92aa8bb49ec0bb6d8e7b95d6c468?from=UC92azc3djZYbnBlb2NaNkRvdVR4VU5Ib3BDVHhjS3dNdXYyK2VzSlovK2c0SFMyZjRsNTdPazFjVEI3dFpycQ==">
+                                <img src="./img/4/2.png" alt="Top Article 2">
+                                <div class="text-box">
+                                    <h3>一堂生动的暑期育人实践课</h3>
+                                    <p>中国教育报 报道</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://www.jxxw.com.cn/content_html/html/55/p/pc/2024/07/132035968.html">
+                                <img class="zoomable" src="./img/4/6.png" alt="Right Slide 1">
+                                <div class="text-box">
+                                    <h3>青春献礼长征路，挺膺担当筑梦行丨北理工开展“纪念红军长征出发90周年”实践活动</h3>
+                                    <p>江西新闻 报道</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://www.peopleapp.com/rmharticle/30045906373">
+                                <img class="zoomable" src="./img/4/7.png" alt="Right Slide 2">
+                                <div class="text-box">
+                                    <h3>北京理工大学开展“纪念红军长征出发90周年”实践活动</h3>
+                                    <p>人民号 报道 （这里根据此篇新闻最后生命写，不确定正确与否）</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://mp.weixin.qq.com/s/ip-hMwwExHVeSSlIToSxjA">
+                                <img src="./img/4/8.png" alt="Right Slide 3">
+                                <div class="text-box">
+                                    <h3>北京知名高校赴昌江区政务实习启动</h3>
+                                    <p>昌江区融媒体中心 报道</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- <div class="slide">
+                            <img src="./img/4/right4.jpg" alt="Right Slide 4">
+                            <div class="text-box">
+                                <h3>Right Slide 4</h3>
+                                <p>Description for right slide 4.</p>
+                            </div>
+                        </div> -->
+                    </div>
+                    <a class="prev" onclick="plusRightSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusRightSlides(1)">&#10095;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 5: Interviews -->
+    <div class="section section5" id="section5">
+        <div class="interview">
+            <div class="interview1" id="interview1">
+                <div class="interview-container">
+                    <span class="interview-img">
+                        <a class="InterviewImgResponsive" href="interview1.html" target="_blank;">
+                            <img src="img/5/interview1.png" alt="">
+                        </a>
+                    </span>
+                    <div class="interview-text">
+                        <h3>
+                            <a href="interview1.html" target="_blank">采访白光华(待修改)</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="interview2" id="interview2">
+                <div class="interview-container">
+                    <span class="interview-img">
+                        <a class="InterviewImgResponsive" href="interview2.html" target="_blank;">
+                            <img src="img/5/interview2.jpeg" alt="">
+                        </a>
+                    </span>
+                    <div class="interview-text">
+                        <h3>
+                            <a href="interview2.html" target="_blank">采访黄莺(待修改)</a>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section 6: 实践感想 -->
+    <div class="section section6" id="section6">
+        <h1>待添加实践感想</h1>
+        <p>This is the third section of the page.</p>
+        <p>You can add more content here.</p>
+    </div>
+
+    <!-- Section 7: video -->
+    <div class="section section7" id="section7">
+        <div class="video-container">
+            <video controls>
+              <source src="./video/temp.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+    
+    
+
+</div>
+    <script src="./script/title.js"></script>
+    <script src="./script/section1.js"></script>
+    <script src="./script/section2.js"></script>
+    <script src="./script/section4.js"></script>
+    <script type="text/javascript" src="./canvas-nest.js/dist/canvas-nest.js"></script>
+    
+</body>
+</html>

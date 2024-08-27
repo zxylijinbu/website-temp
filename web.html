@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Website with Carousel and Interactive Map</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            scroll-snap-type: y mandatory;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation Bar */
+        .navbar {
+            width: 100%;
+            background-color: #5c0b0b;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        
+
+        /* Title Bar */
+        .title-bar {
+            width: 100%;
+            padding: 20px 0;
+            background-color: #945a5a;
+            text-align: center;
+            position: fixed;
+            top: 60px;
+            z-index: 999;
+        }
+
+        .title-bar h1 {
+            margin: 0;
+            font-size: 24px;
+            display: inline-flex;
+        }
+
+        .char {
+            transition: color 0.3s ease, color 1s ease-out 0.5s; /* Smooth transition for color change and delayed transition for reverting to white */
+        }
+
+        .char:hover {
+            color: #FF6347; /* Example hover color, you can choose any color */
+        }
+
+        .char:hover ~ .char {
+            transition-delay: 0s; /* No delay for other characters to turn white */
+        }
+
+        .char {
+            cursor: pointer;
+        }
+
+
+
+        /* Page Section */
+        .section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            padding-top: 120px; /* Adjust to accommodate both navbar and title bar heights */
+            box-sizing: border-box;
+        }
+
+        /* Section 1: Carousel */
+        .carousel {
+            width: 80%;
+            max-width: 1200px;
+            height: 70vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .carousel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Section 2: Interactive Map */
+        .section2 {
+            display: flex;
+            background-color: #f4f4f4;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .map-container {
+            position: relative;
+            width: 50%;
+            max-width: 600px;
+            height: auto;
+        }
+
+        .map-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .hotspot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(255, 0, 0, 0.6);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        /* Hotspot example positions */
+        .hotspot1 {
+            top: 20%;
+            left: 30%;
+        }
+
+        .hotspot2 {
+            top: 60%;
+            left: 70%;
+        }
+
+        /* Tooltip image for hotspot */
+        .hotspot::after {
+            content: '';
+            display: none;
+            position: absolute;
+            top: -150px;
+            left: 30px;
+            width: 200px;
+            height: 200px;
+            background-size: cover;
+            border: 2px solid #000;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .hotspot1::after {
+            background-image: url('./img/2/2.png');
+        }
+
+        .hotspot2::after {
+            background-image: url('./img/2/3.png');
+        }
+
+        .hotspot:hover::after {
+            display: block;
+        }
+
+        /* Right-side description */
+        .description-container {
+            flex: 1;
+            padding: 20px;
+            max-width: 400px;
+            display: none;
+        }
+
+        .description-container.active {
+            display: block;
+        }
+
+        .description-container h3 {
+            margin-top: 0;
+        }
+
+        /* Section 3: Additional Content */
+        .section3 {
+            background-color: #ffffff;
+            text-align: center;
+            padding: 50px;
+        }
+
+        
+        /* Section 4 media report */
+        .section4 {
+            padding: 40px 20px;
+            background-color: #f8f8f8;
+            text-align: center;
+            display: flex;
+            flex-direction: column; /* 将子元素排列为列 */           
+        }
+
+        .top-section {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 100PX;
+            margin-top: 40%;
+            width: 80%;
+            
+        }
+
+        .top-article {
+            
+            background-color: white;
+            padding: 1px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+            margin-right: 100px;
+            
+        }
+
+        .top-article img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .top-article:hover {
+            transform: scale(1.05);
+        }
+
+        .bottom-section {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .carousel-container {
+            width: 80%;
+            height: auto;
+            flex-grow: 0.1; /* 调整图片占用的空间比例 */
+        }
+        .carousel {
+            overflow: hidden;
+            position: relative;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            
+        }
+        .carousel:hover {
+            transform: scale(1.05);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            background-color: white;
+        }
+
+        .text-box {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: auto;
+            padding: 16px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            background-color: rgba(0, 0, 0, 0.5);
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* 针对左右轮播图的箭头调整 */
+        .carousel-container .carousel .prev,
+        .carousel-container .carousel .next {
+            /* 将箭头定位到轮播图容器中 */
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .carousel-container .carousel .prev {
+            left: 10px; /* 调整左箭头位置 */
+        }
+
+        .carousel-container .carousel .next {
+            right: 10px; /* 调整右箭头位置 */
+        }
+
+        .top-article h3, .text-box h3 {
+            margin-top: 10px;
+            font-size: 20px;
+        }
+
+        .top-article p, .text-box p {
+            font-size: 14px;
+            color: #555;
+        }
+        
+    </style>
+    
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <a href="#section1">首页</a>
+        <a href="#section2">Map</a>
+        <a href="#section3">社会实践人员简介</a>
+        <a href="#section4">媒体报道</a>
+    </div>
+
+    <!-- Title Bar under Navigation Bar -->
+    <div class="title-bar">
+        <h1>
+            <span class="char" style="color: #B8B8AA;">而</span>
+            <span class="char" style="color: #9A9181;">今</span>
+            <span class="char" style="color: #ACA69B;">迈</span>
+            <span class="char" style="color: #C0A797;">步</span>
+            <span class="char" style="color: #D6C4AB;">从</span>
+            <span class="char" style="color: #8D8B80;">头</span>
+            <span class="char" style="color: #8E8B7C;">越</span>
+            <span class="char" style="color: #AFA88A;">—</span>
+            <span class="char" style="color: #C3B9A7;">纪</span>
+            <span class="char" style="color: #7D7065;">念</span>
+            <span class="char" style="color: #948B7C;">长</span>
+            <span class="char" style="color: #B4A797;">征</span>
+            <span class="char" style="color: #C6B8A3;">出</span>
+            <span class="char" style="color: #E0CFBA;">发</span>
+            <span class="char" style="color: #B6A890;">90</span>
+            <span class="char" style="color: #A59D89;">周</span>
+            <span class="char" style="color: #8B8473;">年</span>
+            <span class="char" style="color: #BFB8A7;">实</span>
+            <span class="char" style="color: #928C7D;">践</span>
+            <span class="char" style="color: #ACA08B;">团</span>
+        </h1>
+    </div>
+    
+    
+
+    <!-- Section 1: Carousel -->
+    <div class="section" id="section1">
+        <div class="carousel">
+            <div class="slides" id="slide_sec1">
+                <div class="slide"><img src="./img/1/1.jpg" alt="Slide 1"></div>
+                <div class="slide"><img src="./img/1/2.JPG" alt="Slide 2"></div>
+                <div class="slide"><img src="./img/1/3.JPG" alt="Slide 3"></div>
+            </div>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+    </div>
+
+    <!-- Section 2: Interactive Map -->
+    <div class="section section2" id="section2">
+        <div class="map-container">
+            <img src="./img/2/0.jpg" alt="Map">
+            <div class="hotspot hotspot1" data-description="This is the description for hotspot 1."></div>
+            <div class="hotspot hotspot2" data-description="This is the description for hotspot 2."></div>
+        </div>
+        <div class="description-container" id="description">
+            <h3>Hotspot Description</h3>
+            <p id="descriptionText"></p>
+        </div>
+    </div>
+
+    <!-- Section 3: Additional Content -->
+    <div class="section section3" id="section3">
+        <h1>待添加人物介绍</h1>
+        <p>This is the third section of the page.</p>
+        <p>You can add more content here.</p>
+    </div>
+
+    
+    <!-- Section 4: Articles and Carousels -->
+    <div class="section section4" id="section4">
+        
+    
+        <div class="bottom-section">
+            <!-- Left Carousel -->
+            <div class="carousel-container" >
+                <div class="carousel">
+                    <div class="slides" >
+                        <div class="slide">
+                            <a href="https://h.xinhuaxmt.com/vh512/share/12104107?d=134d94d&channel=weixin">
+                                <img src="./img/4/1.jpg" alt="Top Article 1">
+                                <div class="text-box">
+                                    <h3>Article Title 1</h3>
+                                    <p>Article description 1</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="http://5g.jgsdaily.com/content_html/html/668/p/wap/2024/07/132047478.html">
+                                <img src="./img/4/3.png" alt="Left Slide 1">
+                                <div class="text-box">
+                                    <h3>Left Slide 1</h3>
+                                    <p>Description for left slide 1.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://mbd.baidu.com/newspage/data/landingsuper?id=1804843481831009194&baijiahao_id=1804843481831009194&wfr=&third=baijiahao&c_source=kunlun&c_score=0.999000&p_tk=6195KD77l%2FhReucZyZeUuNaVRexjDqN6H1Fgw%2FxaxEM%2BYBvbYPOkS9YI1x22iCDIsNbURYxK0hjGlAy2F%2B%2BkNdP8KUL82c4%2FgEyDhza26kBN81CfTqaPCUFAAiMPaMStbaAP1WWUX%2FkvIuyDRVpdVhRj8ipnMBN3bwW13CZecRBrq%2Fk%3D&p_timestamp=1723872103&p_sign=05755c1ee3daa202efcfb3f922ba2d2a&p_signature=654d9aeafe61f9c7fa9ccccd9e45c469&__pc2ps_ab=6195KD77l%2FhReucZyZeUuNaVRexjDqN6H1Fgw%2FxaxEM%2BYBvbYPOkS9YI1x22iCDIsNbURYxK0hjGlAy2F%2B%2BkNdP8KUL82c4%2FgEyDhza26kBN81CfTqaPCUFAAiMPaMStbaAP1WWUX%2FkvIuyDRVpdVhRj8ipnMBN3bwW13CZecRBrq%2Fk%3D|1723872103|654d9aeafe61f9c7fa9ccccd9e45c469|05755c1ee3daa202efcfb3f922ba2d2a">
+                                <img src="./img/4/4.png" alt="Left Slide 2">
+                                <div class="text-box">
+                                    <h3>Left Slide 2</h3>
+                                    <p>Description for left slide 2.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://s.cyol.com/articles/2024-08/07/content_jpKW6QS2.html?gid=PDEAGwD9">
+                                <img src="./img/4/5.png" alt="Left Slide 3">
+                                <div class="text-box">
+                                    <h3>Left Slide 3</h3>
+                                    <p>Description for left slide 3.</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <a class="prev" onclick="plusLeftSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusLeftSlides(1)">&#10095;</a>
+                </div>
+            </div>
+    
+            <!-- Right Carousel -->
+            <div class="carousel-container">
+                <div class="carousel">
+                    <div class="slides">
+                        <div class="slide">
+                            <a href="https://share.app3.jyb.cn/news_d/97fa92aa8bb49ec0bb6d8e7b95d6c468?from=UC92azc3djZYbnBlb2NaNkRvdVR4VU5Ib3BDVHhjS3dNdXYyK2VzSlovK2c0SFMyZjRsNTdPazFjVEI3dFpycQ==">
+                                <img src="./img/4/2.png" alt="Top Article 2">
+                                <div class="text-box">
+                                    <h3>Article Title 2</h3>
+                                    <p>Article description 2</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://www.jxxw.com.cn/content_html/html/55/p/pc/2024/07/132035968.html">
+                                <img src="./img/4/6.png" alt="Right Slide 1">
+                                <div class="text-box">
+                                    <h3>Right Slide 1</h3>
+                                    <p>Description for right slide 1.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://www.peopleapp.com/rmharticle/30045906373">
+                                <img src="./img/4/7.png" alt="Right Slide 2">
+                                <div class="text-box">
+                                    <h3>Right Slide 2</h3>
+                                    <p>Description for right slide 2.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="slide">
+                            <a href="https://mp.weixin.qq.com/s/ip-hMwwExHVeSSlIToSxjA">
+                                <img src="./img/4/8.png" alt="Right Slide 3">
+                                <div class="text-box">
+                                    <h3>Right Slide 3</h3>
+                                    <p>Description for right slide 3.</p>
+                                </div>
+                            </a>
+                        </div>
+                        <!-- <div class="slide">
+                            <img src="./img/4/right4.jpg" alt="Right Slide 4">
+                            <div class="text-box">
+                                <h3>Right Slide 4</h3>
+                                <p>Description for right slide 4.</p>
+                            </div>
+                        </div> -->
+                    </div>
+                    <a class="prev" onclick="plusRightSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusRightSlides(1)">&#10095;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <script>
+
+        // 标题悬停变色        
+        document.querySelectorAll('.char').forEach(char => {
+            char.addEventListener('mouseover', function() {
+                this.style.color = '#FF6347'; // Hover color
+            });
+
+            char.addEventListener('mouseout', function() {
+                this.style.color = 'white'; // Revert to white with delay
+                setTimeout(() => {
+                    this.style.transition = 'color 1s ease-out';
+                    this.style.color = 'white';
+                }, 0);
+            });
+        });
+
+
+        // section 1
+        let slideIndex = 0;
+        showSlides();
+
+        function plusSlides(n) {
+            slideIndex += n;
+            showSlides();
+        }
+
+        function showSlides() {
+            let slides = document.getElementById("slide_sec1").children;
+            // let slides = document.getElementsByClassName("slide");
+            if (slideIndex >= slides.length) {
+                slideIndex = 0;
+            } else if (slideIndex < 0) {
+                slideIndex = slides.length - 1;
+            }
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slides[slideIndex].style.display = "block";
+        }
+
+        // Automatic Slideshow
+        function autoSlides() {
+            plusSlides(1);
+            setTimeout(autoSlides, 3000); // Change image every 3 seconds
+        }
+
+        autoSlides();
+
+
+        // section2
+        const hotspots = document.querySelectorAll('.hotspot');
+        const descriptionContainer = document.getElementById('description');
+        const descriptionText = document.getElementById('descriptionText');
+
+        hotspots.forEach(hotspot => {
+            hotspot.addEventListener('mouseover', function() {
+                const description = this.getAttribute('data-description');
+                descriptionText.textContent = description;
+                descriptionContainer.classList.add('active');
+            });
+
+            hotspot.addEventListener('mouseout', function() {
+                descriptionContainer.classList.remove('active');
+            });
+        });
+
+
+        //section 4
+        // Section 4 Carousel Code
+        let leftSlideIndex = 0;
+        let rightSlideIndex = 0;
+
+        showLeftSlides();
+        showRightSlides();
+
+        function plusLeftSlides(n) {
+            leftSlideIndex += n;
+            showLeftSlides();
+        }
+
+        function showLeftSlides() {
+            const leftSlides = document.querySelectorAll(".carousel-container:first-child .slide");
+
+            if (leftSlideIndex >= leftSlides.length) {
+                leftSlideIndex = 0;
+            } else if (leftSlideIndex < 0) {
+                leftSlideIndex = leftSlides.length - 1;
+            }
+
+            leftSlides.forEach(slide => slide.style.display = "none");
+            leftSlides[leftSlideIndex].style.display = "block";
+        }
+
+        function plusRightSlides(n) {
+            rightSlideIndex += n;
+            showRightSlides();
+        }
+
+        function showRightSlides() {
+            const rightSlides = document.querySelectorAll(".carousel-container:last-child .slide");
+
+            if (rightSlideIndex >= rightSlides.length) {
+                rightSlideIndex = 0;
+            } else if (rightSlideIndex < 0) {
+                rightSlideIndex = rightSlides.length - 1;
+            }
+
+            rightSlides.forEach(slide => slide.style.display = "none");
+            rightSlides[rightSlideIndex].style.display = "block";
+        }
+
+        // Automatic slideshow for left carousel
+        function autoLeftSlides() {
+            plusLeftSlides(1);
+            setTimeout(autoLeftSlides, 3000); // Change image every 3 seconds
+        }
+
+        // Automatic slideshow for right carousel
+        function autoRightSlides() {
+            plusRightSlides(1);
+            setTimeout(autoRightSlides, 3000); // Change image every 3 seconds
+        }
+
+        // Start automatic slideshows
+        autoLeftSlides();
+        autoRightSlides();
+
+
+
+    </script>
+    <script type="text/javascript" src="./canvas-nest.js/dist/canvas-nest.js"></script>
+    
+</body>
+</html>
