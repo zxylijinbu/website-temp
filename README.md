@@ -20,3 +20,9 @@ css:
     添加section6，等待添加实践感想
      
     完善section2，增加交互地图页的地点描述
+
+8.28
+
+    完成section 6
+
+    完成section 5

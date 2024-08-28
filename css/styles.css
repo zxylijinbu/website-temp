@@ -519,7 +519,7 @@ html {
     height: auto;
     overflow: hidden;
     display: block;
-    background-color: #FF6347;
+    background-color: #f4f4f4;
 }
 
 .InterviewImgResponsive img {
@@ -592,7 +592,7 @@ html {
 }
 
 .sidebar {
-    width: 200px;
+    width: 70px;
     margin-right: 20px;
     border-right: 1px solid #ccc;
 }
